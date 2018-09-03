@@ -22,17 +22,7 @@ Route::get('/task', 'TaskController@get');
 /**
  * 新タスク追加
  */
-Route::post('/task', function(Request $request){
-    $validator = $request->validate([
-        'name' => 'required|max:255'
-    ]);
-
-    $task = new Task;
-    $task->name = $request->name;
-    $task->save();
-
-    return redirect('/');
-});
+Route::post('/task', 'TaskController@post');
 
 /**
  * 既存タスクの削除
