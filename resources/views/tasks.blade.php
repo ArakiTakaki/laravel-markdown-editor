@@ -18,7 +18,7 @@
                 <label for="task" class="col-sm-3 control-label">Task</label>
 
                 <div class="col-sm-6">
-                    <input type="text" name="name" id="task-name" class="form-control">
+                    <input type="text" name="name" id="task-name" class="form-control" autofocus>
                 </div>
             </div>
 
@@ -55,7 +55,10 @@
                                     <form action="/task/{{ $task->id }}" method="POST">
                                         {{ csrf_field() }}
                                         {{ method_field('DELETE') }}
-                                        <button>TASK削除</button>
+
+                                        <button type="submit" class="btn btn-default">
+                                            <i class="fa fa-plus"></i> タスク削除
+                                        </button>
                                     </form>
                                 </td>
                             </tr>
