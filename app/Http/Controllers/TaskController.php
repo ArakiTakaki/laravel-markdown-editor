@@ -8,6 +8,11 @@ use App\Models\Task;
 
 class TaskController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     public function get()
     {
         $tasks = Task::orderBy('created_at', 'asc')->get();

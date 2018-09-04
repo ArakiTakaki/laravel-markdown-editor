@@ -14,10 +14,12 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Auth::routes();
+
 /**
  * 全タスクの表示
  */
-Route::get('/task', 'TaskController@get');
+Route::get('/task', 'TaskController@get')->name('task');
 
 /**
  * 新タスク追加
@@ -28,3 +30,5 @@ Route::post('/task', 'TaskController@post');
  * 既存タスクの削除
  */
 Route::delete('/task/{id}', 'TaskController@delete');
+
+Route::get('/home', 'HomeController@index')->name('home');
