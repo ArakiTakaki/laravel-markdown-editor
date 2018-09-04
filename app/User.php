@@ -26,4 +26,11 @@
      protected $hidden = [
          'password', 'remember_token',
      ];
+
+     /**
+      * 1つのユーザに対して複数のタスクが従属している。
+      */
+     public function tasks(){
+         return $this->hasMany('App\Models\Task');
+     }
  }

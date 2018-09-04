@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Models\Task;
+use App\User;
+use Auth;
 
 class TaskController extends Controller
 {
@@ -13,9 +15,10 @@ class TaskController extends Controller
         $this->middleware('auth');
     }
 
-    public function get()
+    public function get(Request $request)
     {
-        $tasks = Task::orderBy('created_at', 'asc')->get();
+        $userId = Auth::user()->id;
+        $tasks = User::find($userId)->tasks()->get();
         return view('tasks', [
             'tasks' => $tasks
         ]);
@@ -23,12 +26,13 @@ class TaskController extends Controller
 
     public function post(Request $request)
     {
+        $userId = Auth::user()->id;
         $request->validate([
             'name' => 'required|max:255'
         ]);
-
         $task = new Task;
         $task->name = $request->name;
+        $task->user_id =$userId;
         $task->save();
 
         return redirect('/task');
@@ -39,7 +43,8 @@ class TaskController extends Controller
      */
     public function delete($id)
     {
-        Task::findOrFail($id)->delete();
+        $userId = Auth::user()->id;
+        User::find($userId)->tasks()->findOrFail($id)->delete();
         return redirect('/task');
     }
 }
