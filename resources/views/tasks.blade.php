@@ -30,7 +30,41 @@
                     </button>
                 </div>
             </div>
+
         </form>
+
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                現在のタスク
+            </div>
+
+            <div class="panel-body">
+                <table class="table table-striped task-table">
+                    <thead>
+                        <th>タスク</th>
+                        <th>&nbsp;</th>
+                    </thead>
+                    <tbody>
+                        @foreach ($tasks as $task)
+                            <tr>
+                                <td class="table-text">
+                                    <div>{{ $task->name }}</div>
+                                </td>
+                                <td>
+                                    <!-- TODO削除ボタン -->
+                                    <form action="/task/{{ $task->id }}" method="POST">
+                                        {{ csrf_field() }}
+                                        {{ method_field('DELETE') }}
+                                        <button>TASK削除</button>
+                                    </form>
+                                </td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
     </div>
 
     <!-- TODO: 現在のタスク -->

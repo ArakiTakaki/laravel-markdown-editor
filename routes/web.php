@@ -27,6 +27,4 @@ Route::post('/task', 'TaskController@post');
 /**
  * 既存タスクの削除
  */
-Route::delete('/task/{id}', function($id){
-
-});
+Route::delete('/task/{id}', 'TaskController@delete');

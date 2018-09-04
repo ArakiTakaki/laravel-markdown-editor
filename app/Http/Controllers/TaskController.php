@@ -11,12 +11,14 @@ class TaskController extends Controller
     public function get()
     {
         $tasks = Task::orderBy('created_at', 'asc')->get();
-        var_dump($tasks);
-        return view('tasks');
+        return view('tasks', [
+            'tasks' => $tasks
+        ]);
     }
+
     public function post(Request $request)
     {
-        $validator = $request->validate([
+        $request->validate([
             'name' => 'required|max:255'
         ]);
 
@@ -24,7 +26,15 @@ class TaskController extends Controller
         $task->name = $request->name;
         $task->save();
 
-        return redirect('/');
-        //
+        return redirect('/task');
+    }
+
+    /**
+     * @param id number 削除するtodoのprimary-keyを取得する。
+     */
+    public function delete($id)
+    {
+        Task::findOrFail($id)->delete();
+        return redirect('/task');
     }
 }
