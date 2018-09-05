@@ -15,11 +15,11 @@ class CreateCategoryLibTable extends Migration
     {
         Schema::create('category_libs', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('category_lang_id')->unsigned();
+            $table->integer('lang_id')->unsigned();
             $table->string('name');
             $table->text('description');
             $table->timestamps();
-            $table->foreign('category_lang_id')
+            $table->foreign('lang_id')
                 ->references('id')
                 ->on('category_langs')
                 ->onDelete('cascade');

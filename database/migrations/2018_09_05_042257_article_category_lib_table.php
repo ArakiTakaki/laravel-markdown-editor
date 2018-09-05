@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateArticleCategoriesTable extends Migration
+class ArticleCategoryLibTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,11 @@ class CreateArticleCategoriesTable extends Migration
      */
     public function up()
     {
-        Schema::create('article_category', function (Blueprint $table) {
+        Schema::create('article_category_lib', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('article_id')->unsigned();
-            $table->integer('category_lib_id')->unsigned();
-            $table->foreign('category_lib_id')
+            $table->integer('lib_id')->unsigned();
+            $table->foreign('lib_id')
                 ->references('id')
                 ->on('category_libs')
                 ->onDelete('cascade');
@@ -35,6 +35,6 @@ class CreateArticleCategoriesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('article_category');
+        Schema::dropIfExists('article_category_lib');
     }
 }
