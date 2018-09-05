@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
  */
 class ArticleController extends Controller
 {
+
     public function get($id)
     {
         return Article::find($id);
@@ -23,7 +24,7 @@ class ArticleController extends Controller
     {
     }
 
-    public function put($id, $status)
+    public function put($id, Request $request)
     {
     }
 
