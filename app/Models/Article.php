@@ -14,12 +14,12 @@ class Article extends Model
     }
 
     // App\Models\Article::find(???)->categoryLangGet();
-    public function findLang()
+    public function categoryLangs()
     {
         $libs = $this->categoryLibs()->groupBy('lang_id')->get();
         $langs = [];
         foreach($libs as $lib) $langs[] = Category\Lang::find($lib['lang_id']);
-        return $langs;
+        return collect($langs);
     }
     //whereIn
 }
