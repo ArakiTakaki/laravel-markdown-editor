@@ -1,14 +1,4 @@
 <?php
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
 
 Route::get('/', function () {
     return view('welcome');
@@ -17,18 +7,25 @@ Route::get('/', function () {
 Auth::routes();
 
 /**
- * 全タスクの表示
+ * TODO関連のルーティング
  */
 Route::get('/task', 'TaskController@get')->name('task');
-
-/**
- * 新タスク追加
- */
 Route::post('/task', 'TaskController@post');
-
-/**
- * 既存タスクの削除
- */
 Route::delete('/task/{id}', 'TaskController@delete');
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+/**
+ * 記事の編集関連
+ */
+
+Route::get('/api/articles', 'ArticleController@get');
+Route::get('/api/articles/{category}', 'ArticleController@get');
+
+Route::get('/api/article/{id}', 'ArticleController@find');
+
+Route::group(['middleware' => 'auth'], function() {
+    Route::post('/api/article', 'ArticleController@post');
+    Route::delete('/api/article/{id}', 'ArticleController@delete');
+    Route::put('/api/article/{id}', 'ArticleController@put');
+});
