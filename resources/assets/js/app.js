@@ -1,4 +1,10 @@
-
+import React from 'react';
+import ReactDOM from 'react-dom';
+import configureStore from './app/store/configre-store';
+import initialState from './app/store/state';
+import { Provider } from 'react-redux';
+import Root from './app/containers/templates/root'
+const store = configureStore(initialState);
 /**
  * First we will load all of this project's JavaScript dependencies which
  * includes React and other helpers. It's a great starting point while
@@ -13,4 +19,9 @@ require('./bootstrap');
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-require('./components/Example');
+
+ReactDOM.render(
+  <Provider store={store}>
+    <Root />
+  </Provider>
+  , document.getElementById('app'));
