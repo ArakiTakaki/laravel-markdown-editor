@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Article;
 use Illuminate\Http\Request;
+
 use Auth;
+use App\Models\Article;
+use App\Models\Category\Lib;
 
 /**
  * 記事の編集クラス
@@ -13,22 +15,20 @@ class ArticleController extends Controller
 {
     private $PAGE_MAX_COUNT = 2;
 
-    public function get()
+    public function get($category = null)
     {
-        $articles = Article::paginate($this->PAGE_MAX_COUNT);
-        $result = [
-            'currentPage' => $articles->currentPage(),
-            'nextPageUrl' => $articles->nextPageUrl(),
-            'previousPageUrl' => $articles->previousPageUrl(),
-            'hasMorePages' => $articles->hasMorePages()
-        ];
-        for ($i = 1; $i < $articles->count(); $i++) {
-            $result[] = [
-                'article' => $articles->find($i),
-                'lib' => $articles->find($i)->categoryLibs()->get(),
-                'lang' => $articles->find($i)->categoryLangs()->all()
-            ];
+        $result;
+        if (isset($category)) {
+            $result = Lib::where('name', $category);
+            if (!$result->exists()) return redirect('/api/articles');
+            $result = $result->first()->articles()->paginate($this->PAGE_MAX_COUNT);
+        } else{
+            $result = Article::paginate($this->PAGE_MAX_COUNT);
         }
+        print('<pre>');
+        var_dump($result);
+        print('</pre>');
+
         return $result;
     }
 

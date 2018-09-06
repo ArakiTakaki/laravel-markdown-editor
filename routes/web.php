@@ -19,7 +19,9 @@ Route::get('/home', 'HomeController@index')->name('home');
  * 記事の編集関連
  */
 
-Route::get('/api/article', 'ArticleController@get');
+Route::get('/api/articles', 'ArticleController@get');
+Route::get('/api/articles/{category}', 'ArticleController@get');
+
 Route::get('/api/article/{id}', 'ArticleController@find');
 
 Route::group(['middleware' => 'auth'], function() {
