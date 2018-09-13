@@ -25,10 +25,6 @@ class ArticleController extends Controller
         } else{
             $result = Article::paginate($this->PAGE_MAX_COUNT);
         }
-        print('<pre>');
-        var_dump($result);
-        print('</pre>');
-
         return $result;
     }
 
