@@ -7,7 +7,7 @@ export default class Articles{
   static async get(url){
     // TODO {key: value, key2: value} -> key=value&key2=value
     try{
-      const res = await axios.get("http://localhost/api/articles", {})
+      const res = await Axios.get("http://localhost/api/articles", {})
       console.log(res);
       return await res.data;
     }catch(error){
