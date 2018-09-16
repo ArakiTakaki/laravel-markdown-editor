@@ -2,7 +2,6 @@ import React from 'react';
 import Articles from '../../util/api/articles'
 
 
-
 class Root extends React.Component{
   constructor(props){
     super(props);
@@ -15,6 +14,7 @@ class Root extends React.Component{
     this.setState({article:data});
   }
   render(){
+    console.log("root");
     console.log(this.state.article);
     return(
       <div>
