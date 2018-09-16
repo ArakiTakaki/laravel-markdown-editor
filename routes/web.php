@@ -1,6 +1,6 @@
 <?php
 
-Route::get('/react',function(){
+Route::get('/react', function () {
     return view('react_sample');
 });
 
@@ -28,8 +28,17 @@ Route::get('/api/articles/{category}', 'ArticleController@get');
 
 Route::get('/api/article/{id}', 'ArticleController@find');
 
-Route::group(['middleware' => 'auth'], function() {
+Route::group(['middleware' => 'auth'], function () {
     Route::post('/api/article', 'ArticleController@post');
     Route::delete('/api/article/{id}', 'ArticleController@delete');
     Route::put('/api/article/{id}', 'ArticleController@put');
+});
+
+
+
+Route::get('login', 'UserController@login');
+Route::get('register', 'UserController@register');
+
+Route::group(['middleware' => 'auth:api'], function () {
+    Route::post('details', 'UserController@details');
 });
