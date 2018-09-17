@@ -17,20 +17,21 @@ class ArticleController extends Controller
 
     public function get($category = null)
     {
-        $result;
-        if (isset($category)) {
-            $result = Lib::where('name', $category);
-            if (!$result->exists()) return redirect('/api/articles');
-            $result = $result->first()->articles()->paginate($this->PAGE_MAX_COUNT);
-        } else{
-            $result = Article::paginate($this->PAGE_MAX_COUNT);
+        //TODO 必要のない情報の削減
+        return  response()->json(Article::paginate($this->PAGE_MAX_COUNT));
+    }
+
+    public function findCategory($category){
+        $result = Lib::find($category)->articles()->get();
+        if (isset($category)){
+            return  response()->json($result);
         }
-        return $result;
+        return response()->json(['error'=>'指定されたカテゴリが存在しませんでした。'],404);
     }
 
     public function find($id)
     {
-        return Article::find($id);
+        return response()->json(Article::find($id));
     }
 
     public function edit($id, Request $request)
@@ -56,12 +57,19 @@ class ArticleController extends Controller
 
     public function delete($id)
     {
-        Article::destroy($id);
+        $article = Article::find($id);
+        if(isset($article)){
+            //TODO field
+            return response()->json();
+        }
+
+        $article.delete();
+        //TODO success
+        return response()->json();
     }
 
     public function put($id, Request $request)
     {
-        $article = Article::find($id);
-        // validation
+        return response()->json(Article::find($id));
     }
 }
