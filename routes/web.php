@@ -1,14 +1,13 @@
 <?php
 
-Route::get('/react', function () {
-    return view('react_sample');
-});
 
+Route::get('/test', function () {
+    return view('index');
+});
 Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/home', 'HomeController@index')->name('ホームに戻る？');
 /**
  * TODO関連のルーティング
  */
@@ -52,16 +51,14 @@ Route::group(['middleware' => 'auth'], function () {
 /**
  * 会員周り
  */
-Route::get('api/login', 'UserController@login')
+Route::post('api/login', 'UserController@login')
     ->name('ログイン');
 
-Route::get('api/register', 'UserController@register')
+Route::post('api/register', 'UserController@register')
     ->name('会員登録');
 
-
 Route::group(['middleware' => 'auth:api'], function () {
-
     Route::post('details', 'UserController@details')
         ->name('会員削除');
-
 });
+
