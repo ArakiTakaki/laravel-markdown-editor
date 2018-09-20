@@ -13,24 +13,31 @@ use App\Models\Category\Lib;
  */
 class ArticleController extends Controller
 {
-    private $PAGE_MAX_COUNT = 2;
+    private $PAGE_MAX_COUNT = 4;
 
-    public function get($category = null)
+    public function get(Request $req, $category = null)
     {
-        $result;
-        if (isset($category)) {
-            $result = Lib::where('name', $category);
-            if (!$result->exists()) return redirect('/api/articles');
-            $result = $result->first()->articles()->paginate($this->PAGE_MAX_COUNT);
-        } else{
-            $result = Article::paginate($this->PAGE_MAX_COUNT);
+        //TODO カテゴリ用のパラメータも作成しておくと楽になるかも。
+        //$req->input("key");
+        $article = Article::where("status","OPEN")
+            ->select("title","description","created_at","updated_at")
+            ->orderBy("created_at")
+            ->paginate($this->PAGE_MAX_COUNT)
+            ->toJson();
+        return $article;
+    }
+
+    public function findCategory($category){
+        $result = Lib::find($category)->articles()->get();
+        if (isset($category)){
+            return  response()->json($result);
         }
-        return $result;
+        return response()->json(['error'=>'指定されたカテゴリが存在しませんでした。'],404);
     }
 
     public function find($id)
     {
-        return Article::find($id);
+        return response()->json(Article::find($id));
     }
 
     public function edit($id, Request $request)
@@ -56,12 +63,19 @@ class ArticleController extends Controller
 
     public function delete($id)
     {
-        Article::destroy($id);
+        $article = Article::find($id);
+        if(isset($article)){
+            //TODO field
+            return response()->json();
+        }
+
+        $article.delete();
+        //TODO success
+        return response()->json();
     }
 
     public function put($id, Request $request)
     {
-        $article = Article::find($id);
-        // validation
+        return response()->json(Article::find($id));
     }
 }
