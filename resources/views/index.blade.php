@@ -11,7 +11,7 @@
     <noscript>
         JavascriptをONにしてください。
     </noscript>
-<div class="root"></div>
+<div id="root"></div>
 <script src="static/js/main.js"></script>
 </body>
 </html>
