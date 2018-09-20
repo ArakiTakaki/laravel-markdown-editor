@@ -13,12 +13,18 @@ use App\Models\Category\Lib;
  */
 class ArticleController extends Controller
 {
-    private $PAGE_MAX_COUNT = 2;
+    private $PAGE_MAX_COUNT = 4;
 
-    public function get($category = null)
+    public function get(Request $req, $category = null)
     {
-        //TODO 必要のない情報の削減
-        return  response()->json(Article::paginate($this->PAGE_MAX_COUNT));
+        //TODO カテゴリ用のパラメータも作成しておくと楽になるかも。
+        //$req->input("key");
+        $article = Article::where("status","OPEN")
+            ->select("title","description","created_at","updated_at")
+            ->orderBy("created_at")
+            ->paginate($this->PAGE_MAX_COUNT)
+            ->toJson();
+        return $article;
     }
 
     public function findCategory($category){
