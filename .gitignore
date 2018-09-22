@@ -15,5 +15,4 @@ yarn-error.log
 /laradock
 /bin
 .laradock
-public
 .DS_Store
