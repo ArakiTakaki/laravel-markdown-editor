@@ -3,7 +3,7 @@
 const path = require('path');
 const fs = require('fs');
 const url = require('url');
-
+const env = require('dotenv').config().parsed;
 // Make sure any symlinks in the project folder are resolved:
 // https://github.com/facebookincubator/create-react-app/issues/637
 const appDirectory = fs.realpathSync(process.cwd());
@@ -38,9 +38,12 @@ function getServedPath(appPackageJson) {
   return ensureSlash(servedUrl, true);
 }
 
+// console.log( "変更前 : " + resolveApp('public'));
+// console.log( "変更後 : " + env.PROJECT_DIR);
 // config after eject: we're in ./config/
 module.exports = {
-  appBuild: resolveApp('public'),
+  // appBuild: resolveApp('public'),
+  appBuild: env.PROJECT_DIR,
   appPublic: resolveApp('resources/assets/html'),
   appHtml: resolveApp('resources/assets/html/index.html'),
   appIndexJs: resolveApp('resources/assets/js/app.js'),
