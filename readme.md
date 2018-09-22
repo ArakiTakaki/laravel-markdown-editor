@@ -1,26 +1,15 @@
 # 初回起動
 
-`$ git clone https://github.com/ArakiTakaki/laravel-markdown-editor`
+`$ sh setup.sh`
 
-`$ cd laravel-markdown-editor`
+`$ cp env-example .env`
 
-`$ git clone https://github.com/laradock/laradock`
+ワークスペースに接続を行う。
 
-`$ sh laradock.sh`
+`$ cd laradock`
 
-## frontのセットアップ(明日整備する)
+`$ docker-compose exec workspace bash`
 
-`$ echo "${PWD}/public"` -> 控えておく *1
+`$ composer install`
 
-`$ cd frontend`
-
-`$ vim .env`
-
-```.env
-project_dir=*1
-# *1を控えたものに置き換える。
-```
-
-`$ yarn`
-
-`$ yarun build`
+`$ php artisan keygen`
