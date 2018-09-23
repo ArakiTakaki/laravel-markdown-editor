@@ -7,6 +7,8 @@ use Illuminate\Foundation\Http\Kernel as HttpKernel;
 class Kernel extends HttpKernel
 {
     /**
+     * 全体に適用するMiddleware
+     * 
      * The application's global HTTP middleware stack.
      *
      * These middleware are run during every request to your application.
@@ -19,9 +21,12 @@ class Kernel extends HttpKernel
         \App\Http\Middleware\TrimStrings::class,
         \Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull::class,
         \App\Http\Middleware\TrustProxies::class,
+        \App\Http\Middleware\Cors::class, 
     ];
 
     /**
+     * 単体に適応するミドルウェアをグルーピングしたもの
+     * 
      * The application's route middleware groups.
      *
      * @var array
@@ -44,6 +49,8 @@ class Kernel extends HttpKernel
     ];
 
     /**
+     * 単体のMiddleware
+     * 
      * The application's route middleware.
      *
      * These middleware may be assigned to groups or used individually.
